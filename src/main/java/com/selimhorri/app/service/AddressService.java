@@ -1,16 +1,20 @@
 package com.selimhorri.app.service;
 
 import java.util.List;
-
-import com.selimhorri.app.dto.AddressDto;
+import com.selimhorri.app.dto.request.AddressCreateRequestDto;
+import com.selimhorri.app.dto.request.AddressUpdateRequestDto;
+import com.selimhorri.app.dto.response.AddressResponseDto;
 
 public interface AddressService {
-	
-	List<AddressDto> findAll();
-	AddressDto findById(final Integer addressId);
-	AddressDto save(final AddressDto addressDto);
-	AddressDto update(final AddressDto addressDto);
-	AddressDto update(final Integer addressId, final AddressDto addressDto);
+
+	List<AddressResponseDto> findAll();
+
+	AddressResponseDto findById(final Integer addressId);
+
+	AddressResponseDto create(final AddressCreateRequestDto addressCreateRequestDto);
+
+	AddressResponseDto update(final Integer addressId, final AddressUpdateRequestDto addressUpdateRequestDto);
+
 	void deleteById(final Integer addressId);
-	
+
 }

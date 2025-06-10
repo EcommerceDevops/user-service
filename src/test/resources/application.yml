@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect # Usar H2 para pruebas
+    hibernate:
+      ddl-auto: none # Dejar que Flyway maneje el esquema
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MYSQL # URL de H2 en memoria, modo MySQL para compatibilidad
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+  cloud:
+    config:
+      enabled: false
+
+  eureka:
+    client:
+      enabled: false
+
+  flyway:
+    enabled: true # Flyway se ejecutará en H2
