@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  sonar-analysis:
+  java-build:
     uses: EcommerceDevops/workflows/.github/workflows/build-push-java.yml@main
     with:
       IMAGE_NAME: user-service-ecommerce-boot
