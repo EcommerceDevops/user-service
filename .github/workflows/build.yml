@@ -1,0 +1,15 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sonar-analysis:
+    uses: EcommerceDevops/workflows/.github/workflows/build-push-java.yml@main
+    with:
+      IMAGE_NAME: user-service-ecommerce-boot
+      JAVA: true
+      PROJECT_VERSION: 1.0.0
+    secrets: inherit
