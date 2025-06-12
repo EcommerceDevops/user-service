@@ -1,15 +1,17 @@
-name: build
+name: 'Build Release on New Tag'
+
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  java-build:
-    uses: EcommerceDevops/workflows/.github/workflows/build-push-java.yml@main
+  build:
+    uses: EcommerceDevops/workflows/.github/workflows/build-push-java.yml@main # Ajusta la ruta a tu archivo
     with:
-      IMAGE_NAME: user-service-ecommerce-boot
+      IMAGE_NAME: 'user-service-ecommerce-boot'
       JAVA: true
-      PROJECT_VERSION: 1.0.0
+      
+      PROJECT_VERSION: ${{ github.ref_name }}
+      
     secrets: inherit
