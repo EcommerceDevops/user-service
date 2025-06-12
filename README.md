@@ -1,13 +1,2 @@
-name: 'Trigger Versioning on Main Push'
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  call-version-bumper:
-    uses: EcommerceDevops/workflows/.github/workflows/reusable-version-bumper.yml@main
-    permissions:
-      contents: write
-    secrets: inherit
+# Process: 
+1
