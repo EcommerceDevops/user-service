@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-version-bumper:
-    uses: EcommerceDevops/workflows/.github/workflows/reusable-version-bumper.yml@main
+    uses: EcommerceDevops/workflows/.github/workflows/versioning.yml@main
     permissions:
       contents: write
     secrets: inherit
