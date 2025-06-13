@@ -35,11 +35,9 @@ jobs:
       # 1. Pasamos el nombre del servicio directamente como texto.
       service_name: 'user-service'
       
-      # 2. Esta es la parte clave:
-      #    Pasamos el nombre del tag de Git que disparó el workflow (ej. v1.2.3)
-      #    como el nuevo tag de la imagen.
+
       image_tag: ${{ github.ref_name }}
       
     secrets:
       # Pasamos el secreto que necesita el workflow de actualización
-      GH_TOKEN: ${{ secrets.WORKFLOW_PAT_ADMIN }}
+      WORKFLOW_PAT_ADMIN: ${{ secrets.WORKFLOW_PAT_ADMIN }}
