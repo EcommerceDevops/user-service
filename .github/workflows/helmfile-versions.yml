@@ -27,7 +27,7 @@ jobs:
   call-update-workflow:
     # ✅ La llamada al workflow reutilizable se hace aquí, a nivel del job.
     # Se eliminaron las claves `runs-on` y `steps`.
-    uses: EcommerceDevops/workflows/.github/workflows/update-helmfile-prod-values.yml@main
+    uses: EcommerceDevops/workflows/.github/workflows/helmfile-versions@main
     with:
       # Estos valores se toman de los inputs del formulario manual
       service_name: ${{ github.event.inputs.service_name }}
