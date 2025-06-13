@@ -1,0 +1,36 @@
+name: Manual Helmfile Update Trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      service_name:
+        description: 'Nombre del servicio (ej. user-service)'
+        required: true
+        type: choice
+        options:
+        - user-service
+        - shipping-service
+        - proxy-client
+        - product-service
+        - payment-service
+        - order-service
+        - favourite-service
+        - api-gateway
+        - cloud-config
+        - service-discovery
+      image_tag:
+        description: 'Versión del tag de la imagen (ej. v2.0.4)'
+        required: true
+        type: string
+        
+jobs:
+  call-update-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Update Helmfile Workflow
+        uses: EcommerceDevops/workflows/.github/workflows/update-helmfile-prod-values.yml@main
+        with:
+          service_name: ${{ github.event.inputs.service_name }}
+          image_tag: ${{ github.event.inputs.image_tag }}
+        secrets:
+          WORKFLOW_PAT_ADMIN: ${{ secrets.WORKFLOW_PAT_ADMIN }}
