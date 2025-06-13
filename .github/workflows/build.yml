@@ -1,15 +1,45 @@
-name: build
+name: Build and Update Helmfile Version
+
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*' # Se activa cuando creas un tag como v1.0.0, v2.1.5, etc.
   workflow_dispatch:
 
 jobs:
+  # --- JOB 1: Construye y publica la imagen Java ---
   java-build:
+    # Este job no cambia, sigue llamando a tu workflow de build reutilizable
     uses: EcommerceDevops/workflows/.github/workflows/build-push-java.yml@main
     with:
       IMAGE_NAME: user-service-ecommerce-boot
       JAVA: true
+      # El tag de la imagen será el nombre del tag de Git (ej. v1.2.3)
       PROJECT_VERSION: ${{ github.ref_name }}
     secrets: inherit
+
+  # --- JOB 2: Actualiza la versión en Helmfile ---
+  update-helmfile-version:
+    # Nombre descriptivo para el nuevo job
+    name: Update Helmfile Version
+    
+    # 'needs' crea la dependencia. Este job no empezará hasta que 'java-build' termine.
+    needs: java-build
+    
+    # 'if' asegura que solo se ejecute si el job anterior (el build) fue exitoso.
+    if: success()
+
+    # Aquí llamamos al workflow reutilizable para actualizar los values
+    uses: EcommerceDevops/workflows/.github/workflows/helmfile-versions.yml@main
+    with:
+      # 1. Pasamos el nombre del servicio directamente como texto.
+      service_name: 'user-service'
+      
+      # 2. Esta es la parte clave:
+      #    Pasamos el nombre del tag de Git que disparó el workflow (ej. v1.2.3)
+      #    como el nuevo tag de la imagen.
+      image_tag: ${{ github.ref_name }}
+      
+    secrets:
+      # Pasamos el secreto que necesita el workflow de actualización
+      GH_TOKEN: ${{ secrets.WORKFLOW_PAT_ADMIN }}
